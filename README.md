@@ -28,3 +28,4 @@ Usability (5 Points):
     
 Creative Portion (20 Points)
 
+some flashcard css borrowed from https://www.w3schools.com/howto/howto_css_flip_card.asp
