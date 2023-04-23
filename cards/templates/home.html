@@ -38,18 +38,15 @@ h1:after {
     </header>
     {% block content %}
 
-    <h4>Welcome to your Flashcards</h4>
+
+    {%if user.is_authenticated%}
+        <h4>Welcome to your Flashcards</h4>
+    {%else%}
+        <h4>Welcome to Cramster!</h4>
+    {%endif%}
+    
         <div id = "buttons">
 
-        <form action="{% url 'addSet' %}" method="post">
-            {% csrf_token %}
-            <input type = "text" name = "name" placeholder="name">
-            <input type = "text" name = "tag" placeholder="tag">
-            <!-- <input type="hidden" id="setId" name="setId" value="{{id}}"> -->
-            <!-- change this later to be username passed in for creation -->
-            <button type="submit" name='button'>New Set</button>
-
-        </form>
 
 
         {%for name, id in cardSets.items%}
@@ -67,23 +64,32 @@ h1:after {
                  <button type="submit" name='button'>delete {{name}}</button>
             </form>
 
-        
-
-
-
         {%endfor%}
 
 
     </div>
     {%if user.is_authenticated%}
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'addSet' %}" method="post">
+            {% csrf_token %}
+            <input type = "text" name = "name" placeholder="name">
+            <input type = "text" name = "tag" placeholder="tag">
+            <!-- <input type="hidden" id="setId" name="setId" value="{{id}}"> -->
+            <!-- change this later to be username passed in for creation -->
+            <button type="submit" name='button'>New Set</button>
+
+        </form>
+        <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" name='button'>logout</button>
-            </form>
+        </form>
     {%else%}
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name='button'>login</button>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name='button'>login</button>
+        </form>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name='button'>register</button>
         </form>
     {%endif%}
 
