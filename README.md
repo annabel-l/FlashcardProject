@@ -26,6 +26,6 @@ Usability (5 Points):
     Site is intuitive to use and navigate (4 points)
     Site is visually appealing (1 point)
     
-Creative Portion (20 Points)
+Creative Portion (15 Points)
 
 some flashcard css borrowed from https://www.w3schools.com/howto/howto_css_flip_card.asp
