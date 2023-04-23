@@ -17,19 +17,6 @@ div#main{
 	margin: 0;
 	padding: 10px;
 }
-button{
-
-
-    background-color: #4CAF50; /* Green */
-    border:rgb(13, 0, 0);
-    color: white;
-    padding: 8px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-
-}
 h1:after {
     
     content:' ';
@@ -88,37 +75,52 @@ h1:after {
     color: rgb(13, 0, 0);
     transform: rotateY(180deg);
   }
+  button {
+    background-color: rgb(40, 198, 53); /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+  
+  /* Darker background on mouse-over */
+  button:hover {
+    background-color: rgb(51, 128, 44);
+  }
+  .btn {
+    background-color: rgb(255, 30, 30); /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color: RoyalBlue;
+  }
 </style>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body><div id="main">
 
-    <header>
-    <h1>Cramster
-
+    <header><h1>Cramster
         <form action="{% url 'homeScreen' %}" >
             {% csrf_token %}
-            
-             <button type="submit" name='button'>Return Home</button>
+              <br>
+             <button type="submit" name='button'>Home</button>
         </form>
-
-       
-
-    </h1>
+    </h1> </header>
     
-    <!-- doesn't work -->
-    </header>
-    
-
-
-
     
     {% block content %}
     <form action="{% url 'addCard' %}" method="post">
         {% csrf_token %}
         <input type = "text" name = "front" placeholder="front">
         <input type = "text" name = "back" placeholder="back">
-        <button type="submit" name='button'>New Set</button>
+        <button type="submit" name='button'>New Card</button>
 
     </form>
     <div class = "center">
@@ -139,7 +141,7 @@ h1:after {
       <form action="{% url 'deleteCard' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="item" value = {{item.1}}>
-         <button type="submit" name='button'>delete card</button>
+         <button type="submit" class = "btn" name='button'><i class="fa fa-trash"></i></button>
     </form>
 
     

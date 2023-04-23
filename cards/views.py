@@ -14,7 +14,8 @@ def homeScreen(request):
         cardSets = CardSet.objects.filter(owner = user)
         list = {}
         for set in cardSets:
-            list[set.name] = set.id
+            list[set.name] = [set.id, set.importance]
+            
         
         return render(request, 'home.html', {"cardSets": list})
     except:
@@ -95,5 +96,15 @@ def updateCardScreen(request):
         print( "stuff: " + card.back)
         print(card.id)
     return render(request, 'cards.html', {"cards": list})
+
+def markImportant(request):
+    setId = request.POST['setId']
+    cardSet = CardSet.objects.get(id=setId)
+    if cardSet.importance:
+        cardSet.importance = False
+    else:
+        cardSet.importance = True
+    cardSet.save()
+    return homeScreen(request)
 
     
