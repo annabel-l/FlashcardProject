@@ -24,7 +24,6 @@ class LoginForm(forms.Form):
             }
         )
     )
-
     def validUser(user):
         username = user.cleaned_data.get("username")
         qs = User.objects.filted(username__iexact = username)

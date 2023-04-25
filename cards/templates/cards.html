@@ -101,20 +101,34 @@ h1:after {
   .btn:hover {
     background-color: RoyalBlue;
   }
+  .tag{
+    text-align: left;
+    
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(81, 0, 255);
+  }
+  .name{
+    text-align: left;
+    color:rgb(13, 0, 0);
+    
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body><div id="main">
 
-    <header><h1>Cramster
+    <header>
+      <h1>Cramster
         <form action="{% url 'homeScreen' %}" >
             {% csrf_token %}
               <br>
              <button type="submit" name='button'>Home</button>
         </form>
     </h1> </header>
-    
-    
+    <h2><div class = "name"> {{name}} </div></h2>
+    <h2><div class = "tag">{{tag}}</div></h2>
+     
     {% block content %}
     <form action="{% url 'addCard' %}" method="post">
         {% csrf_token %}

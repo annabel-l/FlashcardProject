@@ -165,6 +165,9 @@ button#set:hover {
         </form>
 
         <br>
+        {%if sort%}
+            currently sorted {{sort}}
+        {%endif%}
         <br><br>
     {%else%}
         <h4>Welcome to Cramster!</h4>

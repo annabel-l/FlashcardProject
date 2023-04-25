@@ -19,6 +19,9 @@ urlpatterns = [
     path("login/",  loginCheck, name = "login"),
     path('logout/', logoutCheck, name = "logout"),
     path('register/', registerCheck, name = "register"),
-    
-
+    path("/search", searchResults, name="search"),
+    path("/azSort", azSorting, name = "azSort"),
+    path("/newSort", newSorting, name = "newSort"),
+    path("/oldSort", oldSorting, name = "oldSort"),
+    path("/impSort", impSorting, name = "impSort")
 ]

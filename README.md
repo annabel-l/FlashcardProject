@@ -27,5 +27,10 @@ Usability (5 Points):
     Site is visually appealing (1 point)
     
 Creative Portion (15 Points)
+    For our creative portion, we implemented a drop down menu that sorts the sets alphabetically, by date created, or by importance. The type of sort will also be maintained throughout the session unless changed.
+    
+     We also added a tag that will display for each cardset (can be used to store subject, class, etc.).
+     
+     We also created a search bar that allows for you to search for a set by its name or by its tag name.
 
 some flashcard css borrowed from https://www.w3schools.com/howto/howto_css_flip_card.asp

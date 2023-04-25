@@ -17,7 +17,8 @@ def registerCheck(request):
         user = User.objects.create_user(username, email, password)
         user.set_password(password)
         if user != None: 
-            login(request, user)
+            newUser = authenticate(request, username = username, password = password)
+            login(request, newUser)
             return redirect("/")
     return render( request, "account.html", {"form":form})
 

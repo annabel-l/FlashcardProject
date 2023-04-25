@@ -24,5 +24,10 @@ urlpatterns = [
 
     path("login/",  include("cards.urls")),
     path('logout/', include("cards.urls")),
-    path('register/', include("cards.urls"))
+    path('register/', include("cards.urls")),
+    path('/search', include("cards.urls")),
+    path('/azSort', include("cards.urls")),
+    path('/newSort', include("cards.urls")),
+    path('/oldSort', include("cards.urls")),
+    path('/impSort', include("cards.urls"))
 ]
