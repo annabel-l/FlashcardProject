@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/>
+<title>My Web Page</title>
+<style type="text/css">
+body{
+	width: 760px; /* how wide to make your web page */
+	background-color: wheat; /* what color to make the background */
+	margin: 0 auto;
+	padding: 0;
+	font:12px/16px Verdana, sans-serif; /* default font */
+}
+div#main{
+	background-color: aliceblue;
+	margin: 0;
+	padding: 10px;
+}
+h1:after {
+    
+    content:' ';
+    display:block;
+    border:2px solid #d0d0d0;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+button.home {
+    background-color: rgb(40, 198, 53); /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+  /* Darker background on mouse-over */
+  button.home:hover {
+    background-color: rgb(51, 128, 44);
+  }
+  .btn {
+    background-color: rgb(255, 30, 30); /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+  
+  button.result {
+    background-color: rgb(40, 198, 53); /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+  /* Darker background on mouse-over */
+  button.result:hover {
+    background-color: rgb(51, 128, 44);
+  }
+  .btn {
+    background-color: rgb(255, 30, 30); /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+
+
+</style>
+
+</head>
+<body><div id="main">
+
+    <header><h1>Cramster
+        <form action="{% url 'homeScreen' %}" >
+            {% csrf_token %}
+              <br>
+             <button class = "home" type="submit" name='button'>Home</button>
+        </form>
+    </h1> </header>
+    <h2>Search Results: </h2>
+    <br>
+
+    {%block content%}
+    
+        {% if not results %}
+            No search results
+        {% else %}
+            {% for name, id in results.items %}
+            <form action="{% url 'cardView' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="setId" name="setId" value="{{id.0}}">
+                <button id = "set" class = "result" type="submit" name='button'>{{name}}</button>
+            </form>
+            {% endfor %}
+        {% endif %}
+
+
+
+    {% endblock content%}
+
+</div></body>
+</html>
