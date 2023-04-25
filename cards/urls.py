@@ -15,8 +15,10 @@ urlpatterns = [
     path("/addSet",  addSet, name = "addSet"),
     path("/deleteCard",  deleteCard, name = "deleteCard"),
     path("/addCard",  addCard, name = "addCard"),
+    path('star/', markImportant, name = "important"),
     path("login/",  loginCheck, name = "login"),
     path('logout/', logoutCheck, name = "logout"),
-    path('register/', registerCheck, name = "register")
+    path('register/', registerCheck, name = "register"),
+    
 
 ]

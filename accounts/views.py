@@ -14,13 +14,11 @@ def registerCheck(request):
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
         email = None
-        try:
-            user = User.objects.create_user(username, email, password)
-            user.set_password(password)
-        except: user = None
+        user = User.objects.create_user(username, email, password)
+        user.set_password(password)
         if user != None: 
             login(request, user)
-            return redirect("login/")
+            return redirect("/")
     return render( request, "account.html", {"form":form})
 
 def loginCheck(request):
@@ -33,10 +31,12 @@ def loginCheck(request):
         #    return render(request, "forms.html", {"form":form, "invalid_user":True})
         if user != None:
             login(request, user) #logs in user, redirects them home, otherwise goes to auto login page
+            request.session['userId'] = user.id
             return redirect("/")
     return render( request, "account.html", {"form":form})
 
 def logoutCheck(request):
     logout(request)
+    request.session['userId'] = None
     return redirect("/")
         

@@ -6,13 +6,21 @@ from accounts.views import *
 
 def homeScreen(request):
 
-    cardSets = CardSet.objects.all()
-    #filter for only can see your own sets when logged in later
-    list = {}
-    for set in cardSets:
-        list[set.name] = set.id
     
-    return render(request, 'home.html', {"cardSets": list})
+    #filter for only can see your own sets when logged in later
+    try:
+        userId = request.session.get('userId')
+        user = User.objects.get(id = userId)
+        cardSets = CardSet.objects.filter(owner = user)
+        list = {}
+        for set in cardSets:
+            list[set.name] = [set.id, set.importance]
+            
+        
+        return render(request, 'home.html', {"cardSets": list})
+    except:
+         return render(request, 'home.html')
+    
 
 def cardScreen(request):
 
@@ -43,11 +51,9 @@ def addSet(request):
 
     setName = request.POST['name']
     setTag = request.POST['tag']
-    user = User.objects.get(username = "Joe Mama")
-    #currentUsername = request.POST['username']
-    #user = User.objects.get(username = currentUsername)
+    userId = request.session.get('userId')
+    user = User.objects.get( id = userId)
    
-    #cardSet = CardSet(owner = username, setName = name, setTag = tag)
     cardSet = CardSet(owner = user, name = setName, tag = setTag)
     cardSet.save()
     return homeScreen(request)
@@ -90,5 +96,15 @@ def updateCardScreen(request):
         print( "stuff: " + card.back)
         print(card.id)
     return render(request, 'cards.html', {"cards": list})
+
+def markImportant(request):
+    setId = request.POST['setId']
+    cardSet = CardSet.objects.get(id=setId)
+    if cardSet.importance:
+        cardSet.importance = False
+    else:
+        cardSet.importance = True
+    cardSet.save()
+    return homeScreen(request)
 
     
