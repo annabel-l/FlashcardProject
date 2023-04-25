@@ -38,8 +38,6 @@ h1:after {
 
 
 button#set{
-
-
     background-color: #2aaadd; /* Green */
     border:rgb(13, 0, 0);
     color: white;
@@ -48,7 +46,6 @@ button#set{
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
-
 }
 button#set:hover {
     background-color: RoyalBlue;
@@ -84,27 +81,91 @@ button#set:hover {
     display: inline-block;
   }
 
+  .dropdown {
+  display: inline-block;
+  position: relative;
+  padding: 5px 8px;
+}
+.dropbtn{
+    width: 100px;
+    padding: 5px 8px;
+}
+.dropdown-content {
+  background-color: aliceblue;
+  opacity: 1;
+  display: none;
+  position: absolute;
+  width: 100%;
+  overflow: auto;
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  z-index: 1;
+}
+.dropdown:hover .dropdown-content {
+  color:aliceblue;
+  display: block;
+}
+.dropdown-content a {
+  display: block;
+  color: #000000;
+  padding: 5px;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  color: #FFFFFF;
+  background-color: #00A4BD;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body><div id="main">
 
     <header>
+        {%if user.is_authenticated%}
+        <div style = "float:right">
+            <form action=" {% url 'search' %}" method="get">
+                {% csrf_token %}
+                <input type = "text" name = "search" placeholder = "search by name or tag">
+                <button type="submit">Search</button>
+            </form>
+            <br>
+        </div>
+        {%endif%}
+    </header>
+    </header>
     <h1>Cramster</h1>
     </header>
     {% block content %}
 
 
     {%if user.is_authenticated%}
-        <h4>Welcome to your Flashcards</h4>
+        <div style = "float:right">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name='button'>logout</button>
+            </form>
+        </div>
+        <h4>Welcome to your Flashcards!</h4>
+
+        <div style = "float:right" class="dropdown">
+            <button class = "dropbtn">Sort by: </button>
+            <div class="dropdown-content">
+            <a href="{% url 'azSort' %}">A-Z</a>
+            <a href="{% url 'newSort' %}">Newest</a>
+            <a href="{% url 'oldSort' %}">Oldest</a>
+            <a href="{% url 'impSort' %}">Importance</a>
+            </div>
+        </div>
+
         <form action="{% url 'addSet' %}" method="post">
             {% csrf_token %}
             <input type = "text" name = "name" placeholder="name">
             <input type = "text" name = "tag" placeholder="tag">
             <button type="submit" name='button'>New Set</button>
-
         </form>
-        <br><hr class = "line">
+
+        <br>
+        <br><br>
     {%else%}
         <h4>Welcome to Cramster!</h4>
     {%endif%}
@@ -120,32 +181,28 @@ button#set:hover {
                 <input type="hidden" id="setId" name="setId" value="{{id.0}}">
                 <button class = "{{id.1}}" type="submit" name='button'>important</button>
             </form>
-            </div>
+        </div>
 
         <form action="{% url 'cardView' %}" method="post">
             {% csrf_token %}
             <input type="hidden" id="setId" name="setId" value="{{id.0}}">
-             <button id = "set" type="submit" name='button'>{{name}}</button>
-             </form>
+            <button id = "set" type="submit" name='button'>{{name}}</button>
+        </form>
 
-             <form action="{% url 'deleteSet' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" id="setId" name="setId" value="{{id.0}}">
-                <button class = "btn" type="submit" name='button'><i class="fa fa-trash"></i></button>
-            </form>
+        <form action="{% url 'deleteSet' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="setId" name="setId" value="{{id.0}}">
+            <button class = "btn" type="submit" name='button'><i class="fa fa-trash"></i></button>
+        </form>
             
             <br><br>
 
         {%endfor%}
 
+        </div>
 
-    </div>
     {%if user.is_authenticated%}
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <hr class = "line">
-            <button type="submit" name='button'>logout</button>
-        </form>
+    
     {%else%}
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
