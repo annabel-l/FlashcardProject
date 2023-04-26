@@ -18,8 +18,7 @@ def registerCheck(request):
         user.set_password(password)
         if user != None: 
             newUser = authenticate(request, username = username, password = password)
-            login(request, newUser)
-            return redirect("/")
+            return redirect("/login")
     return render( request, "account.html", {"form":form})
 
 def loginCheck(request):
@@ -27,12 +26,11 @@ def loginCheck(request):
     if form.is_valid(): 
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
-        user = authenticate(request, username = username, password = password) #checks if valid user and password, returns None if invalid password
-        #if user == None:
-        #    return render(request, "forms.html", {"form":form, "invalid_user":True})
+        user = authenticate(request, username = username, password = password)
         if user != None:
-            login(request, user) #logs in user, redirects them home, otherwise goes to auto login page
+            login(request, user)
             request.session['userId'] = user.id
+            request.session['sort']=None
             return redirect("/")
     return render( request, "account.html", {"form":form})
 
